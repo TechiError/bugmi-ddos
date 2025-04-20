@@ -29,6 +29,8 @@ def read_users():
     except FileNotFoundError:
         return []
 
+open(LOG_FILE, "w")
+
 allowed_user_ids = read_users()
 
 # Command logging
