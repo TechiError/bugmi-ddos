@@ -60,12 +60,12 @@ COOLDOWN_TIME = 0
 def index():
     return 'Bot is running.'
 
-@app.route(f'/{API_TOKEN}', methods=['POST'])
+@app.route(f'/webhook', methods=['POST'])
 def webhook():
     json_string = request.get_data().decode('utf-8')
     update = telebot.types.Update.de_json(json_string)
     bot.process_new_updates([update])
-    return '!', 200
+    return ""
 
 @bot.message_handler(func=lambda m: True)
 def handle_all_messages(message):
