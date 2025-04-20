@@ -16,8 +16,8 @@ bot = telebot.TeleBot(API_TOKEN)
 app = Flask(__name__)
 
 admin_id = ["5283370687"]
-USER_FILE = "users.txt"
-LOG_FILE = "log.txt"
+USER_FILE = "/tmp/users.txt"
+LOG_FILE = "/tmp/log.txt"
 
 allowed_user_ids = []
 
