@@ -1,8 +1,8 @@
 {
     "builds": [
-      {"src": "reporteralpha.py", "use": "@vercel/python"}
+      {"src": "api/reporteralpha.py", "use": "@vercel/python"}
     ],
     "routes": [
-      {"src": "/(.*)", "dest": "reporteralpha.py"}
+      {"src": "/(.*)", "dest": "api/reporteralpha.py"}
     ]
   }
