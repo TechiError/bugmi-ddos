@@ -1,9 +1,14 @@
-import telebot
-import subprocess
-import requests
-import datetime
 import os
+import time
+import socket
+import threading
+import logging
+import datetime
+import telebot
+import socks
 from flask import Flask, request
+from stem import Signal
+from stem.control import Controller
 
 API_TOKEN = os.getenv("API_TOKEN")
 bot = telebot.TeleBot(API_TOKEN)
