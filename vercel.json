@@ -1,6 +1,8 @@
 {
-    "version": 2,
-    "rewrites": [
-    { "source": "/", "destination": "/index.html" }
-  ]
-}
+    "builds": [
+      {"src": "reporteralpha.py", "use": "@vercel/python"}
+    ],
+    "routes": [
+      {"src": "/(.*)", "dest": "reporteralpha.py"}
+    ]
+  }
